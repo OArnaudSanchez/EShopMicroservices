@@ -1,0 +1,35 @@
+name: 'Dotnet Build and Test'
+description: 'Build and test a .NET solution'
+
+inputs:
+  solution:
+    description: 'The path to the solution file'
+    required: true
+  dotnet_version:
+    description: 'The version of .NET to use'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup .NET
+      run: |
+        echo "##[group]Setting up .NET SDK ${{ inputs.dotnet_version }}"
+        dotnet --version
+        echo "##[endgroup]"
+      shell: bash
+
+    - name: Restore dependencies
+      run: |
+        dotnet restore ${{ inputs.solution }}
+      shell: bash
+
+    - name: Build solution
+      run: |
+        dotnet build ${{ inputs.solution }} --no-restore
+      shell: bash
+
+    - name: Test solution
+      run: |
+        dotnet test ${{ inputs.solution }} --no-build --verbosity normal
+      shell: bash
