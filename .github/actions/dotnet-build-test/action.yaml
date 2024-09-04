@@ -18,9 +18,12 @@ runs:
 
     - name: Restore dependencies
       run: dotnet restore ${{ inputs.solution }}
+      working-directory: EShopMicroservices/src
 
     - name: Build
       run: dotnet build ${{ inputs.solution }} --no-restore
+      working-directory: EShopMicroservices/src
 
     - name: Test
       run: dotnet test ${{ inputs.solution }} --no-build --verbosity normal
+      working-directory: EShopMicroservices/src
