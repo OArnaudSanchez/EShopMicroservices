@@ -1,12 +1,10 @@
 name: .NET
 
 on:
-  push:
-    branches: [ "main", "develop" ]
-    paths:
-      - '**/*' 
   pull_request:
     branches: [ "main", "develop" ]
+    paths:
+      - '**/*'
 
 jobs:
   build:
