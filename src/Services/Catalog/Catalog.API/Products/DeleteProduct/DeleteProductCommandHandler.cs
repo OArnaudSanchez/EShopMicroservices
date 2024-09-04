@@ -2,14 +2,22 @@
 {
     public record DeleteProductCommand(Guid ProductId) : ICommand<Unit>;
 
+    public class DeleteProductCommandValidator : AbstractValidator<DeleteProductCommand>
+    {
+        public DeleteProductCommandValidator()
+        {
+            RuleFor(command => command.ProductId)
+                .NotEmpty().WithMessage("Product Id is required");
+        }
+    }
+
     internal class DeleteProductCommandHandler(IDocumentSession session)
         : ICommandHandler<DeleteProductCommand>
     {
         public async Task<Unit> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
         {
-            //TODO: Add Pipeline Behaviour
             var product = await session.LoadAsync<Product>(command.ProductId, cancellationToken);
-            if (product is null) throw new ProductNotFoundException();
+            if (product is null) throw new ProductNotFoundException(command.ProductId);
 
             session.Delete(product);
             await session.SaveChangesAsync();

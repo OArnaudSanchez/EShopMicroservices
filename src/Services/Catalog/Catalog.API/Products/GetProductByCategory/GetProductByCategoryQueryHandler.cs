@@ -8,8 +8,9 @@
     {
         public async Task<GetProductByCategoryResult> Handle(GetProductByCategoryQuery query, CancellationToken cancellationToken)
         {
-            //TODO: Add pipeline Behaviour
-            var products = await session.Query<Product>().Where(x => x.Categories.Contains(query.Category)).ToListAsync(cancellationToken);
+            var products = await session.Query<Product>()
+                .Where(x => x.Categories.Contains(query.Category))
+                .ToListAsync(cancellationToken);
 
             return new GetProductByCategoryResult(products);
         }

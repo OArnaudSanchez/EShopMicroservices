@@ -1,8 +1,11 @@
 ﻿global using BuildingBlocks.Abstractions.CQRS;
+global using BuildingBlocks.Exceptions.Handler;
 global using Carter;
+global using Catalog.API.Behaviours;
 global using Catalog.API.Entities;
-global using Catalog.API.Products.CreateProduct;
+global using Catalog.API.Exceptions;
+global using FluentValidation;
 global using Mapster;
 global using Marten;
 global using MediatR;
-global using Catalog.API.Exceptions;
+global using System.Reflection;

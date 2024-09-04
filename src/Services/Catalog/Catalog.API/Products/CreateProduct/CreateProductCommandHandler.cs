@@ -1,7 +1,5 @@
 ﻿namespace Catalog.API.Products.CreateProduct
 {
-    public record CreateProductResult(Guid Id);
-
     //TODO: Move this class into its own file
     public record CreateProductCommand
         (string Name,
@@ -10,6 +8,7 @@
         string ImageFile,
         decimal Price)
         : ICommand<CreateProductResult>;
+    public record CreateProductResult(Guid Id);
 
     internal class CreateProductCommandHandler(IDocumentSession session) : ICommandHandler<CreateProductCommand, CreateProductResult>
     {

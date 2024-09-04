@@ -47,14 +47,9 @@
         public static Product Update(
             Product product,
             string name,
-            List<string> categories,
-            string description,
-            string imageFile,
             decimal price)
         {
             product.Name = name ?? product.Name;
-            product.Categories = categories.Count > 0 ? categories : product.Categories;
-            product.Description = description ?? product.Description;
             product.Price = price > 0 ? price : product.Price;
             return product;
         }
