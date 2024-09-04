@@ -1,0 +1,26 @@
+name: 'Build and Test .NET Application'
+description: 'Restores dependencies, builds, and runs tests for a .NET application.'
+inputs:
+  solution:
+    description: 'The path to the .NET solution file'
+    required: true
+  dotnet_version:
+    description: 'The .NET version to use'
+    required: true
+    default: '8.0.x'
+runs:
+  using: "composite"
+  steps:
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ inputs.dotnet_version }}
+
+    - name: Restore dependencies
+      run: dotnet restore ${{ inputs.solution }}
+
+    - name: Build
+      run: dotnet build ${{ inputs.solution }} --no-restore
+
+    - name: Test
+      run: dotnet test ${{ inputs.solution }} --no-build --verbosity normal
