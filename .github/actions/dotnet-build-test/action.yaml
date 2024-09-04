@@ -1,29 +1,35 @@
-name: 'Build and Test'
-description: 'Restores dependencies, builds, and runs tests for a .NET application.'
+name: 'Dotnet Build and Test'
+description: 'Build and test a .NET solution'
+
 inputs:
   solution:
-    description: 'The path to the .NET solution file'
+    description: 'The path to the solution file'
     required: true
   dotnet_version:
-    description: 'The .NET version to use'
+    description: 'The version of .NET to use'
     required: true
-    default: '8.0.x'
+
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: ${{ inputs.dotnet_version }}
+      run: |
+        echo "##[group]Setting up .NET SDK ${{ inputs.dotnet_version }}"
+        dotnet --version
+        echo "##[endgroup]"
+      shell: bash
 
     - name: Restore dependencies
-      run: dotnet restore ${{ inputs.solution }}
-      working-directory: EShopMicroservices/src
+      run: |
+        dotnet restore ${{ inputs.solution }}
+      shell: bash
 
-    - name: Build
-      run: dotnet build ${{ inputs.solution }} --no-restore
-      working-directory: EShopMicroservices/src
+    - name: Build solution
+      run: |
+        dotnet build ${{ inputs.solution }} --no-restore
+      shell: bash
 
-    - name: Test
-      run: dotnet test ${{ inputs.solution }} --no-build --verbosity normal
-      working-directory: EShopMicroservices/src
+    - name: Test solution
+      run: |
+        dotnet test ${{ inputs.solution }} --no-build --verbosity normal
+      shell: bash
