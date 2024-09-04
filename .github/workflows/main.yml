@@ -3,8 +3,6 @@ name: .NET Build
 on:
   pull_request:
     branches: [ "main", "develop" ]
-    paths:
-      - '**/*'
 
 jobs:
   build:
