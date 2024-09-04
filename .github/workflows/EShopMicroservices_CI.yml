@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main", "develop" ]
     paths:
-      - '**/*'  # This ensures the workflow runs on any file changes
+      - '**/*' 
   pull_request:
     branches: [ "main", "develop" ]
 
