@@ -1,1 +1,1 @@
-# EShopMicroservices
+# EShopMicroservices Practice project
