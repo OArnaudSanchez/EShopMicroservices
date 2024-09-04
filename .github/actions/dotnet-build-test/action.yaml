@@ -1,4 +1,4 @@
-name: 'Build and Test .NET Application'
+name: 'Build and Test'
 description: 'Restores dependencies, builds, and runs tests for a .NET application.'
 inputs:
   solution:
