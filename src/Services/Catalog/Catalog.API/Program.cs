@@ -1,7 +1,6 @@
-using BuildingBlocks.Behaviours;
-
 var builder = WebApplication.CreateBuilder(args);
 var assembly = typeof(Program).Assembly;
+var connectionString = builder.Configuration.GetConnectionString("CatalogApi")!;
 
 //Register DI Services - Add services to the container
 
@@ -26,16 +25,31 @@ builder.Services.AddCarter(configurator: config =>
 
 builder.Services.AddMarten(options =>
 {
-    options.Connection(builder.Configuration.GetConnectionString("CatalogApi")!);
-}).UseLightweightSessions();
+    options.Connection(connectionString);
+})
+.UseLightweightSessions();
+
+if (builder.Environment.IsDevelopment())
+{
+    //builder.Services.InitializeMartenWith<CatalogInitialData>();
+}
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
+builder.Services.AddHealthChecks()
+    .AddNpgSql(connectionString);
 
 //Configure the HTTP request pipeline.
 var app = builder.Build();
 app.MapCarter();
 
 app.UseExceptionHandler(options => { });
+
+app.UseHealthChecks("/health",
+    new HealthCheckOptions
+    {
+        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+    });
 
 //TODO: add swagger support
 await app.RunAsync();

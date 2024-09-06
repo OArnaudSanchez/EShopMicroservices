@@ -1,13 +1,12 @@
 ﻿namespace Catalog.API.Products.CreateProduct
 {
-    //TODO: Move this class into its own file
     public record CreateProductCommand
-        (string Name,
-        List<string> Categories,
-        string Description,
-        string ImageFile,
-        decimal Price)
-        : ICommand<CreateProductResult>;
+       (string Name,
+       List<string> Categories,
+       string Description,
+       string ImageFile,
+       decimal Price) : ICommand<CreateProductResult>;
+
     public record CreateProductResult(Guid Id);
 
     internal class CreateProductCommandHandler(IDocumentSession session) : ICommandHandler<CreateProductCommand, CreateProductResult>
