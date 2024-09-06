@@ -1,6 +1,5 @@
 ﻿namespace Catalog.API.Products.CreateProduct
 {
-    //TODO: Refactor, this is duplicated code
     public record CreateProductRequest(string Name,
         List<string> Categories,
         string Description,
