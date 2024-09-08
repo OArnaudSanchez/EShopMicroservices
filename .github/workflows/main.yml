@@ -1,12 +1,14 @@
-name: .NET Build
+name: .NET Build and Test
 
 on:
+  push:
+    branches: [ "main", "dev" ]
   pull_request:
-    branches: [ "main", "develop" ]
+    branches: [ "main", "dev" ]
 
 jobs:
   build:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && (github.base_ref == 'main' || github.base_ref == 'develop'))
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && (github.base_ref == 'main' || github.base_ref == 'dev'))
     runs-on: ubuntu-latest
 
     steps:
