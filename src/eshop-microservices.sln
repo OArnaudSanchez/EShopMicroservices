@@ -20,7 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A2636EE0-E2C4-4943-B612-A95DBBF8237A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.API", "Tests\Catalog\Catalog.API\Catalog.API.csproj", "{9C2EA0E5-0CE2-403C-847E-FC361D01F0E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.API.Tests", "Tests\Catalog\Catalog.API\Catalog.API.Tests.csproj", "{9C2EA0E5-0CE2-403C-847E-FC361D01F0E4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{FDAB8020-B72B-4180-BDF3-9807C6D4B0E6}"
 EndProject

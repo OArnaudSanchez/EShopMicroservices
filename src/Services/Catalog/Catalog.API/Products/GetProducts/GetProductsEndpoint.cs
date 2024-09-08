@@ -8,19 +8,21 @@
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapGet("/products", async ([AsParameters] GetProductsRequest request, ISender sender) =>
-            {
-                var query = request.Adapt<GetProductQuery>();
-
-                var products = await sender.Send(query);
-                var response = products.Adapt<GetProductsResponse>();
-                return Results.Ok(response);
-            })
+            app.MapGet("/products", HandleGetProducts)
             .WithName("GetProducts")
             .Produces<GetProductsResponse>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .WithSummary("Get Products")
             .WithDescription("Get Products");
+        }
+
+        public async Task<IResult> HandleGetProducts([AsParameters] GetProductsRequest request, ISender sender)
+        {
+            var query = request.Adapt<GetProductQuery>();
+
+            var products = await sender.Send(query);
+            var response = products.Adapt<GetProductsResponse>();
+            return Results.Ok(response);
         }
     }
 }

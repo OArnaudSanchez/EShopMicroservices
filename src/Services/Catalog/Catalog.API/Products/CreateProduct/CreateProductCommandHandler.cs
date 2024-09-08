@@ -9,12 +9,13 @@
 
     public record CreateProductResult(Guid Id);
 
-    internal class CreateProductCommandHandler(IDocumentSession session) : ICommandHandler<CreateProductCommand, CreateProductResult>
+    public class CreateProductCommandHandler(IDocumentSession session) : ICommandHandler<CreateProductCommand, CreateProductResult>
     {
         public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
             var product = Product.Create(command.Name, command.Categories, command.Description, command.ImageFile, command.Price);
 
+            //TODO: Refactor and use Repository pattern
             session.Store(product);
             await session.SaveChangesAsync(cancellationToken);
 
