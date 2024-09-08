@@ -53,3 +53,6 @@ app.UseHealthChecks("/health",
 
 //TODO: add swagger support
 await app.RunAsync();
+
+public partial class Program
+{ }

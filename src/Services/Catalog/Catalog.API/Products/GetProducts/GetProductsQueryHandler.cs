@@ -3,7 +3,7 @@
     public record GetProductQuery(int? PageNumber = 1, int? PageSize = 10) : IQuery<GetProductsResult>;
     public record GetProductsResult(IPagedList<Product> Products);
 
-    internal class GetProductsQueryHandler(IDocumentSession session) : IQueryHandler<GetProductQuery, GetProductsResult>
+    public class GetProductsQueryHandler(IDocumentSession session) : IQueryHandler<GetProductQuery, GetProductsResult>
     {
         public async Task<GetProductsResult> Handle(GetProductQuery query, CancellationToken cancellationToken)
         {

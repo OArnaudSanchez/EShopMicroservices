@@ -8,7 +8,7 @@
        string ImageFile,
        decimal Price) : ICommand<Unit>;
 
-    internal class UpdateProductCommandHandler(IDocumentSession session)
+    public class UpdateProductCommandHandler(IDocumentSession session)
         : ICommandHandler<UpdateProductCommand>
     {
         public async Task<Unit> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
@@ -22,7 +22,7 @@
                 command.Price);
 
             session.Update(product);
-            await session.SaveChangesAsync();
+            await session.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }
     }
