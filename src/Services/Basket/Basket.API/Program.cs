@@ -3,13 +3,19 @@
 //TODO: Use Extension methods => ConfigureServices class to clean this file
 var builder = WebApplication.CreateBuilder(args);
 var assembly = typeof(Program).Assembly;
-var connectionString = builder.Configuration.GetConnectionString("BasketApi")!;
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<IBasketRepository, BasketRepository>();
+builder.Services.Decorate<IBasketRepository, CachedBasketRepository>();
 builder.Services.AddSingleton<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
+    options.InstanceName = builder.Configuration["RedisConfiguration:Instance"];
+});
 
 builder.Services.AddMediatR(config =>
 {
@@ -32,7 +38,7 @@ builder.Services.AddCarter(configurator: config =>
 
 builder.Services.AddMarten(options =>
 {
-    options.Connection(connectionString);
+    options.Connection(builder.Configuration.GetConnectionString("BasketApi")!);
     options.Schema.For<ShoppingCart>().Identity(x => x.UserName);
 })
 .UseLightweightSessions();

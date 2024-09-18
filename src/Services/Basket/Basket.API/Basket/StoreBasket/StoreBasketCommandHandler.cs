@@ -19,7 +19,7 @@
     {
         public async Task<StoreBasketResult> Handle(StoreBasketCommand command, CancellationToken cancellationToken)
         {
-            repository.UpsertBasket(command.ShoppingCart, cancellationToken);
+            repository.UpsertBasket(command.ShoppingCart);
             await unitOfWork.SaveChangesAsync(cancellationToken);
 
             return new StoreBasketResult(command.ShoppingCart.UserName);

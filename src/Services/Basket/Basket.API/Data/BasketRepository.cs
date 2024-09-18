@@ -8,12 +8,12 @@
             return await session.LoadAsync<ShoppingCart>(userName, cancellationToken);
         }
 
-        public void UpsertBasket(ShoppingCart shoppingCart, CancellationToken cancellationToken = default)
+        public void UpsertBasket(ShoppingCart shoppingCart)
         {
             session.Store(shoppingCart);
         }
 
-        public void DeleteBasket(ShoppingCart shoppingCart, CancellationToken cancellationToken = default)
+        public void DeleteBasket(ShoppingCart shoppingCart)
         {
             session.Delete(shoppingCart);
         }
