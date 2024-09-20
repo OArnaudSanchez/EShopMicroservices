@@ -1,19 +1,25 @@
 //Configure Dependency Injection Services
 
 //TODO: Use Extension methods => ConfigureServices class to clean this file
+
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+
 var builder = WebApplication.CreateBuilder(args);
 var assembly = typeof(Program).Assembly;
+var postgresConnectionString = builder.Configuration.GetConnectionString("BasketApi")!;
+var redisConnectionString = builder.Configuration.GetConnectionString("Redis")!;
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<IBasketRepository, BasketRepository>();
 builder.Services.Decorate<IBasketRepository, CachedBasketRepository>();
-builder.Services.AddSingleton<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddStackExchangeRedisCache(options =>
 {
-    options.Configuration = builder.Configuration.GetConnectionString("Redis");
+    options.Configuration = redisConnectionString;
     options.InstanceName = builder.Configuration["RedisConfiguration:Instance"];
 });
 
@@ -38,18 +44,28 @@ builder.Services.AddCarter(configurator: config =>
 
 builder.Services.AddMarten(options =>
 {
-    options.Connection(builder.Configuration.GetConnectionString("BasketApi")!);
+    options.Connection(postgresConnectionString);
     options.Schema.For<ShoppingCart>().Identity(x => x.UserName);
 })
 .UseLightweightSessions();
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
+builder.Services.AddHealthChecks()
+    .AddRedis(redisConnectionString)
+    .AddNpgSql(postgresConnectionString);
+
 //Configure Request Pipeline
 var app = builder.Build();
 app.MapCarter();
 
 app.UseExceptionHandler(options => { });
+
+app.UseHealthChecks("/health",
+    new HealthCheckOptions
+    {
+        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+    });
 
 if (app.Environment.IsDevelopment())
 {
