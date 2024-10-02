@@ -2,6 +2,7 @@
 
 //TODO: Use Extension methods => ConfigureServices class to clean this file
 
+using Discount.Grpc;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
@@ -54,6 +55,20 @@ builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 builder.Services.AddHealthChecks()
     .AddRedis(redisConnectionString)
     .AddNpgSql(postgresConnectionString);
+
+//GRPC Services
+builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(options =>
+{
+    options.Address = new Uri(builder.Configuration["GrpcSettings:DiscountUrl"]!);
+}).ConfigurePrimaryHttpMessageHandler(() =>
+{
+    var handler = new HttpClientHandler
+    {
+        ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator!
+    };
+
+    return handler;
+});
 
 //Configure Request Pipeline
 var app = builder.Build();
