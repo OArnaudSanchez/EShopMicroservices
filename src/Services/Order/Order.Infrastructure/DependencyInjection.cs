@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Order.Infrastructure.Data;
 
 namespace Order.Infrastructure
 {
@@ -7,7 +9,12 @@ namespace Order.Infrastructure
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            //TODO: Add Infrastructure DI services
+            var sqlServerConnectionString = configuration.GetConnectionString("OrderApi");
+            services.AddDbContext<OrderDbContext>(options =>
+            {
+                options.UseSqlServer(sqlServerConnectionString);
+            });
+
             return services;
         }
     }
