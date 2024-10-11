@@ -14,7 +14,11 @@
 
         public OrderStatus Status { get; private set; } = OrderStatus.Pending;
 
-        public decimal TotalPrice => OrderItems.Sum(x => x.Price * x.Quantity);
+        public decimal TotalPrice
+        {
+            get => OrderItems.Sum(x => x.Price * x.Quantity);
+            set { }
+        }
 
         private readonly List<OrderItem> _orderItems = new();
 

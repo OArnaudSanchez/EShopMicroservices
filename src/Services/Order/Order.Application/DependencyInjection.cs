@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace Order.Application
 {
@@ -9,6 +10,11 @@ namespace Order.Application
             //TODO: Add Application DI services
 
             //MediatR
+            services.AddMediatR(options =>
+            {
+                options.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+            });
+
             //FluentValidation
             //Mappings
             return services;

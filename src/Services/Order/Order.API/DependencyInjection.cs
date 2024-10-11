@@ -1,4 +1,6 @@
-﻿namespace Order.API
+﻿using Order.Infrastructure.Extensions;
+
+namespace Order.API
 {
     public static class DependencyInjection
     {
