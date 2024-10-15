@@ -38,13 +38,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discount.Grpc", "Services\D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Order", "Order", "{C7CCA3E3-4A0E-48A1-96D2-0D7DAFB0EFB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Order.API", "Services\Order\Order.API\Order.API.csproj", "{C46F297C-20A5-4E75-AAC0-1C4432C51424}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Order.API", "Services\Order\Order.API\Order.API.csproj", "{C46F297C-20A5-4E75-AAC0-1C4432C51424}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Order.Domain", "Services\Order\Order.Domain\Order.Domain.csproj", "{BF919C2D-001A-4D9F-9478-1EAB28294B6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Order.Domain", "Services\Order\Order.Domain\Order.Domain.csproj", "{BF919C2D-001A-4D9F-9478-1EAB28294B6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Order.Application", "Services\Order\Order.Application\Order.Application.csproj", "{37C5C10A-7B88-431A-BB99-85BF7D87062A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Order.Application", "Services\Order\Order.Application\Order.Application.csproj", "{37C5C10A-7B88-431A-BB99-85BF7D87062A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Order.Infrastructure", "Services\Order\Order.Infrastructure\Order.Infrastructure.csproj", "{16ADC2F1-66B8-47B9-8639-B17352DD0031}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Order.Infrastructure", "Services\Order\Order.Infrastructure\Order.Infrastructure.csproj", "{16ADC2F1-66B8-47B9-8639-B17352DD0031}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Order", "Order", "{4D89D7CD-81F6-493A-988F-60A9AC1E21D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -108,6 +110,7 @@ Global
 		{BF919C2D-001A-4D9F-9478-1EAB28294B6E} = {C7CCA3E3-4A0E-48A1-96D2-0D7DAFB0EFB7}
 		{37C5C10A-7B88-431A-BB99-85BF7D87062A} = {C7CCA3E3-4A0E-48A1-96D2-0D7DAFB0EFB7}
 		{16ADC2F1-66B8-47B9-8639-B17352DD0031} = {C7CCA3E3-4A0E-48A1-96D2-0D7DAFB0EFB7}
+		{4D89D7CD-81F6-493A-988F-60A9AC1E21D7} = {A2636EE0-E2C4-4943-B612-A95DBBF8237A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C0FC0506-5DF2-44B6-AE45-2894E15EF628}

@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using BuildingBlocks.Behaviours;
+using BuildingBlocks.Exceptions.Handler;
+using Catalog.API.Behaviours;
+using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace Order.Application
@@ -7,15 +11,19 @@ namespace Order.Application
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            //TODO: Add Application DI services
+            var assembly = Assembly.GetExecutingAssembly();
 
             //MediatR
-            services.AddMediatR(options =>
+            services.AddMediatR(config =>
             {
-                options.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+                config.RegisterServicesFromAssembly(assembly);
+                config.AddOpenBehavior(typeof(ValidationBehaviour<,>));
+                config.AddOpenBehavior(typeof(LoggingBehaviour<,>));
             });
 
             //FluentValidation
+            services.AddValidatorsFromAssembly(assembly);
+
             //Mappings
             return services;
         }
