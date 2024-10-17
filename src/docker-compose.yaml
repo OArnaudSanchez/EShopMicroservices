@@ -102,6 +102,21 @@ services:
     volumes:
       - postgres_basket:/var/lib/postgresql/data/
 
+  orderdb:
+    image: mcr.microsoft.com/mssql/server
+    container_name: orderdb
+    restart: always
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_USER=sa 
+      - MSSQL_SA_PASSWORD=SwN12345678
+    volumes:
+      - sqlserver_order:/var/opt/mssql/data
+    user: root
+  
 volumes:
   postgres_catalog:
   postgres_basket:
+  sqlserver_order:

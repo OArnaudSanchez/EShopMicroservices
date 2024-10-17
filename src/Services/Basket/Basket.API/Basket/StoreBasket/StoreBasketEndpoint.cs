@@ -9,6 +9,7 @@
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
+            //TODO: Use Handler method to refactor this
             app.MapPost("/basket", async (StoreBastetRequest request, ISender sender) =>
             {
                 var result = await sender.Send(new StoreBasketCommand(request.Cart));
