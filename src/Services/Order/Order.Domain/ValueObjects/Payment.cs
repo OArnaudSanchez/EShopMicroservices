@@ -6,7 +6,7 @@
 
         public string CardNumber { get; } = string.Empty;
 
-        public string Expiration { get; } = string.Empty;
+        public string Expiration { get; } = string.Empty; //TODO: The format must be Month/Year
 
         public string Cvv { get; } = string.Empty;
 

@@ -4,6 +4,7 @@ namespace Order.Application.Interfaces
 {
     public interface IOrderRepository
     {
+        //TODO: Use Generic Repository Pattern, and this repository must inherits from the generic repository, also create a customer and product repositories
         Task<IEnumerable<Domain.Entities.Order>> GetOrdersAsync(PaginationRequest pagination, CancellationToken cancellationToken);
 
         Task<Domain.Entities.Order?> GetOrderByIdAsync(Guid orderId, CancellationToken cancellationToken);//TODO: Receive func

@@ -31,6 +31,12 @@ namespace Order.Application.Features.Orders.Commands.CreateOrder
     {
         public async Task<Guid> Handle(CreateOrderCommand command, CancellationToken cancellationToken)
         {
+            //TODO: What happens if the customer does not exist?
+            //TODO: What happers if the product does not exist?
+
+            //TODO: How we can create new customers? Maybe we have to develop some endpoints, commands and queries for that
+            //TODO: How we can create new products? Maybe we have to develop some endpoints, commands and queries for that
+
             var order = CreateNewOrder(command.Order);
 
             await orderRepository.AddOrderAsync(order, cancellationToken);
